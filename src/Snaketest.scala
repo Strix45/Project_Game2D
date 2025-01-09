@@ -11,7 +11,7 @@ class Snake() {
   var left : Boolean = false
 
   val position : Array[Int] = Array(7,7)
-  val gridFill : Array[Array[Int]] = Array.fill(15,15)(0)
+  val gridFill : Array[Array[Int]] = Array.ofDim[Int](15,15)
 
 }
 
@@ -106,7 +106,7 @@ object Snaketest extends App {
         }
       }
     }
-    drawCell(snake1.position(0), snake1.position(1), hello)
+
 
 
 
@@ -114,7 +114,7 @@ object Snaketest extends App {
 
     //refresh the screen at 60 FPS
     display.syncGameLogic(60)
-  }
+}
 
 }
 
