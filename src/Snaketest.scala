@@ -1,11 +1,7 @@
 package Snake
-import hevs.graphics.FunGraphics
+import hevs.graphics.{FunGraphics, ImageGraphics}
 
 import java.awt.Color
-import java.awt.event.{KeyAdapter, KeyEvent}
-
-import Snake.Snaketest.display
-
 import java.awt.event.{KeyAdapter, KeyEvent}
 
 class Snake() {
@@ -15,9 +11,7 @@ class Snake() {
   var left : Boolean = false
 
   val position : Array[Int] = Array(7,7)
-
   val gridFill : Array[Array[Int]] = Array.fill(15,15)(0)
-
 
 }
 
@@ -100,10 +94,24 @@ object Snaketest extends App {
     }
   })
 
-
-
   while (true) {
-    drawCell(snake1.position(0),snake1.position(1),hello)
+    for (x <- spaceOfTheCorner until numCellsX - spaceOfTheCorner) {
+      for (y <- spaceOftheHeader + spaceOfTheCorner until numCellsY - spaceOfTheCorner) {
+        // Alterne les couleurs en fonction de la position
+        var isItTheSame : Boolean = snake1.position(0) == x && snake1.position(1) == y
+        if (((x + y) % 2 == 0) && !isItTheSame)   {
+          drawCell(x, y, new Color(178, 215, 95, 255)) // vert clair
+        } else if(!((x + y) % 2 == 0) && !isItTheSame){
+          drawCell(x, y, new Color(157, 201, 82, 255)) // Vert foncé
+        }
+      }
+    }
+    drawCell(snake1.position(0), snake1.position(1), hello)
+
+
+
+
+
     //refresh the screen at 60 FPS
     display.syncGameLogic(60)
   }
