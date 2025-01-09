@@ -12,7 +12,6 @@ class Snake() {
 
   val position : Array[Int] = Array(7,7)
   val gridFill : Array[Array[Int]] = Array.fill(15,15)(0)
-
 }
 
 
@@ -106,7 +105,17 @@ object Snaketest extends App {
         }
       }
     }
-    drawCell(snake1.position(0), snake1.position(1), hello)
+    snake1.gridFill(snake1.position(0))(snake1.position(1)) = 1
+    snake1.gridFill(snake1.position(0)+1)(snake1.position(1)) = 1
+
+    for(i<-snake1.gridFill.indices){
+      for(j<-snake1.gridFill.indices){
+        if(snake1.gridFill(i)(j) == 1){
+          drawCell(i,j, hello)
+        }
+      }
+    }
+
 
 
 
