@@ -9,7 +9,7 @@ class Snake() {
   var left : Boolean = false
 
   val position : Array[Int] = Array(7,7)
-  val lastPosition : Array[Int] = Array(7,7)
+  val lastposition : Array[Int] = Array.fill(2)(0)
   val gridFill : Array[Array[Int]] = Array.fill(15,15)(0)
 
   println(gridFill.mkString("/"))

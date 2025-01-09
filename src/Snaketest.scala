@@ -15,6 +15,7 @@ class Snake() {
   var left : Boolean = false
 
   val position : Array[Int] = Array(7,7)
+
   val gridFill : Array[Array[Int]] = Array.fill(15,15)(0)
 
 
@@ -72,7 +73,7 @@ object Snaketest extends App {
   backColor(new Color(100, 136, 64, 255))
   header(new Color(85, 115, 54, 255))
 
-  def drawGame():Unit= {
+
     // Draw Grid
     for (x <- spaceOfTheCorner until numCellsX - spaceOfTheCorner) {
       for (y <- spaceOftheHeader + spaceOfTheCorner until numCellsY - spaceOfTheCorner) {
@@ -84,7 +85,7 @@ object Snaketest extends App {
         }
       }
     }
-  }
+
   var snake1 : Snake = new Snake()
   var hello : Color = new Color(50,50,255)
 
@@ -92,10 +93,10 @@ object Snaketest extends App {
   display.setKeyManager(new KeyAdapter() { // Will be called when a key has been pressed
     override def keyPressed(e: KeyEvent): Unit = {
       if (e.getKeyChar == 'a') println("The key 'A' was pressed")
-      if (e.getKeyCode == KeyEvent.VK_RIGHT) snake1.position(0) += 1
-      if (e.getKeyCode == KeyEvent.VK_LEFT) snake1.position(0) -= 1
-      if (e.getKeyCode == KeyEvent.VK_UP) snake1.position(1) -= 1
-      if (e.getKeyCode == KeyEvent.VK_DOWN) snake1.position(1) += 1
+      if (e.getKeyCode == KeyEvent.VK_RIGHT) {snake1.position(0) += 1}
+      if (e.getKeyCode == KeyEvent.VK_LEFT) {snake1.position(0) -= 1}
+      if (e.getKeyCode == KeyEvent.VK_UP) {snake1.position(1) -= 1}
+      if (e.getKeyCode == KeyEvent.VK_DOWN) {snake1.position(1) += 1}
     }
   })
 
@@ -103,12 +104,6 @@ object Snaketest extends App {
 
   while (true) {
     drawCell(snake1.position(0),snake1.position(1),hello)
-    if((snake1.position(0)+snake1.position(1))%2==0){
-      drawCell(snake1.position(0),snake1.position(1), new Color(178, 215, 95, 255))
-    } else {
-      drawCell(snake1.position(0),snake1.position(1), new Color(157, 201, 82, 255))
-
-    }
     //refresh the screen at 60 FPS
     display.syncGameLogic(60)
   }
