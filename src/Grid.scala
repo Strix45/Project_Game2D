@@ -1,6 +1,6 @@
 import hevs.graphics.FunGraphics
 
-import java.awt.Color
+import java.awt.{Color, Font}
 import java.awt.event.{KeyAdapter, KeyEvent}
 import java.util.Random
 
@@ -30,7 +30,7 @@ class Grid (){
       var randomX : Int = (Math.random()*15).toInt
       var randomY : Int = (Math.random()*15).toInt
       foodTimer += 1
-      if (foodTimer > 10 && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
+      if (foodTimer > 2 && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
         foodTimer = 0
 
         display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.05, "/res/strawberry.png")
@@ -78,25 +78,25 @@ class Grid (){
   display.setKeyManager(new KeyAdapter() { // Will be called when a key has been pressed
     override def keyPressed(e: KeyEvent): Unit = {
       if (e.getKeyChar == 'a') println("The key 'A' was pressed")
-      if (e.getKeyCode == KeyEvent.VK_RIGHT && snake.position(0)< 15) {
+      if (e.getKeyCode == KeyEvent.VK_RIGHT) {
         snake.left = false
         snake.down = false
         snake.up = false
         snake.right = true
       }
-      if (e.getKeyCode == KeyEvent.VK_LEFT && snake.position(0)> 1) {
+      if (e.getKeyCode == KeyEvent.VK_LEFT) {
         snake.down = false
         snake.up = false
         snake.right = false
         snake.left = true
       }
-      if (e.getKeyCode == KeyEvent.VK_UP && snake.position(1)>4) {
+      if (e.getKeyCode == KeyEvent.VK_UP) {
         snake.left = false
         snake.down = false
         snake.right = false
         snake.up = true
       }
-      if (e.getKeyCode == KeyEvent.VK_DOWN && snake.position(1)<18) {
+      if (e.getKeyCode == KeyEvent.VK_DOWN) {
         snake.left = false
         snake.up = false
         snake.right = false
@@ -104,10 +104,11 @@ class Grid (){
       }
     }
   })
-  //TODO Implement "death" when bumping into a corner
-  //TODO Implement "death" when bumping into itself
 
 
+
+
+  var tailDeath : Boolean = false
 
 
   //Function that draws a cell of size cellSize starting at the position (x,y) and of color c
@@ -157,22 +158,27 @@ class Grid (){
     }
   }
 
+
+
+
   def move() : Unit = {
-    if (snake.up == true && snake.position(1)>4){
+    if (snake.up == true){
       snake.position(1) -= 1
-    } else if (snake.down == true && snake.position(1)<18) {
+    } else if (snake.down == true) {
       snake.position(1) += 1
-    } else if (snake.right == true && snake.position(0)< 15){
+    } else if (snake.right == true){
       snake.position(0) += 1
-    } else if (snake.left==true &&snake.position(0)> 1){
+    } else if (snake.left==true){
       snake.position(0) -= 1
     }
+
+    if (gridElement(snake.position(0)-1)(snake.position(1)-4)>0) {tailDeath = true}
     gridElement(snake.position(0)-1)(snake.position(1)-4) += snake.size + 1
+
     //Important that the lowest value possible is 2 so that when it does -1 the snake head still shows
     //It's that way because of the order of the methods
     //Size of snake = x-1
   }
-
 
   def drawGame() : Unit = {
     for(x <- gridElement.indices){
@@ -190,6 +196,12 @@ class Grid (){
         }
       }
     }
+  }
+
+
+  def deathScreen() : Unit = {
+    display.clear()
+    display.drawString(width/4,height/2, "YOU DIEDDDDD", blue, 20)
   }
 
 
