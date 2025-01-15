@@ -30,15 +30,27 @@ class Grid (){
       }
     }
 
-    var foodTimer : Int = 0
 
 
     def createFood() : Unit = {
       var randomX : Int = (Math.random()*15).toInt
       var randomY : Int = (Math.random()*15).toInt
-      foodTimer += 1
+
       if (((foodGrid(snake.position(0)-1)(snake.position(1)-4) == 1) || (foodGrid(snake.position(0)-1)(snake.position(1)-4) == 2)) && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
-        foodTimer = 0
+        display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.05, "/res/strawberry.png")
+        foodGrid(randomX)(randomY) = 1
+      } else if (foodGrid(randomX)(randomY)==1){
+        drawEmpty(randomX,randomY)
+        display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.175, "/res/Goldberry_ingame.png")
+        foodGrid(randomX)(randomY) = 2
+
+      }
+    }
+
+    def createFood2() : Unit = {
+      var randomX : Int = (Math.random()*15).toInt
+      var randomY : Int = (Math.random()*15).toInt
+      if (((foodGrid(snake.position(0)-1)(snake.position(1)-4) == 1) || (foodGrid(snake.position(0)-1)(snake.position(1)-4) == 2)) && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
         display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.05, "/res/strawberry.png")
         foodGrid(randomX)(randomY) = 1
       } else if (foodGrid(randomX)(randomY)==1){
@@ -88,25 +100,25 @@ class Grid (){
   display.setKeyManager(new KeyAdapter() { // Will be called when a key has been pressed
     override def keyPressed(e: KeyEvent): Unit = {
       if (e.getKeyChar == 'a') println("The key 'A' was pressed")
-      if (e.getKeyCode == KeyEvent.VK_RIGHT) {
+      if (e.getKeyCode == KeyEvent.VK_RIGHT && snake.left == false) {
         snake.left = false
         snake.down = false
         snake.up = false
         snake.right = true
       }
-      if (e.getKeyCode == KeyEvent.VK_LEFT) {
+      if (e.getKeyCode == KeyEvent.VK_LEFT && snake.right == false) {
         snake.down = false
         snake.up = false
         snake.right = false
         snake.left = true
       }
-      if (e.getKeyCode == KeyEvent.VK_UP) {
+      if (e.getKeyCode == KeyEvent.VK_UP && snake.down == false) {
         snake.left = false
         snake.down = false
         snake.right = false
         snake.up = true
       }
-      if (e.getKeyCode == KeyEvent.VK_DOWN) {
+      if (e.getKeyCode == KeyEvent.VK_DOWN && snake.up == false) {
         snake.left = false
         snake.up = false
         snake.right = false
@@ -114,7 +126,6 @@ class Grid (){
       }
     }
   })
-
 
 
 
@@ -193,11 +204,11 @@ class Grid (){
   def drawGame() : Unit = {
     for(x <- gridElement.indices){
       for (y <- gridElement(x).indices){
-        if (gridElement(x)(y)>1){
+        if (gridElement(x)(y)>0){
           drawCell(x+cornerSize,y+headerSize+1,blue)    //draws the snake in the cells where the value is higher than 0
         }
         if (gridElement(x)(y)>0) {      //>0 so that no cell value ever goes under 0
-          gridElement(x)(y) -= 1
+          gridElement(x)(y) -= 1        //That's why it's snake.size + 1, because we do -1 right away
         }
         drawEmpty(x,y)
       }
