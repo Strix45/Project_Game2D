@@ -33,8 +33,8 @@ object Main {
       if(random > 1){
         grid.food.createFood()
       } else {
-        grid.food.createFood()
         grid.food.createFood2()
+
       }
 
       grid.food.eat()

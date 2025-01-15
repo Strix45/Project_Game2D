@@ -39,11 +39,6 @@ class Grid (){
       if (((foodGrid(snake.position(0)-1)(snake.position(1)-4) == 1) || (foodGrid(snake.position(0)-1)(snake.position(1)-4) == 2)) && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
         display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.05, "/res/strawberry.png")
         foodGrid(randomX)(randomY) = 1
-      } else if (foodGrid(randomX)(randomY)==1){
-        drawEmpty(randomX,randomY)
-        display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.175, "/res/Goldberry_ingame.png")
-        foodGrid(randomX)(randomY) = 2
-
       }
     }
 
@@ -51,13 +46,9 @@ class Grid (){
       var randomX : Int = (Math.random()*15).toInt
       var randomY : Int = (Math.random()*15).toInt
       if (((foodGrid(snake.position(0)-1)(snake.position(1)-4) == 1) || (foodGrid(snake.position(0)-1)(snake.position(1)-4) == 2)) && gridElement(randomX)(randomY) == 0 && foodGrid(randomX)(randomY) == 0){
-        display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.05, "/res/strawberry.png")
-        foodGrid(randomX)(randomY) = 1
-      } else if (foodGrid(randomX)(randomY)==1){
         drawEmpty(randomX,randomY)
         display.drawTransformedPicture(cornerSize * 30 + randomX*cellSize + 15, headerSize * 30 + randomY*cellSize + 45, 0, 0.175, "/res/Goldberry_ingame.png")
         foodGrid(randomX)(randomY) = 2
-
       }
     }
 
