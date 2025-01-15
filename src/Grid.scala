@@ -150,6 +150,8 @@ class Grid (){
         display.setPixel(x, y, c)
       }
     }
+    display.drawTransformedPicture(width/4, headerSize*cellSize/2, 0, 0.05, "/res/strawberry.png")
+    scoreDisplay()
   }
 
 
@@ -217,12 +219,13 @@ class Grid (){
 
   def scoreDisplay () : Unit = {
     display.drawString(width/6,height/8, s"This is your score : ${snake.score}","Arial",Font.PLAIN,20, blue)
+
   }
 
   def deathScreen() : Unit = {
     display.clear()
     display.drawString(width/4,height/2, "YOU DIEDDDDD", blue, 20)
-    scoreDisplay()
+    drawHeader(headerGreen)
   }
 
 
