@@ -12,7 +12,7 @@ object Main {
     //Drawing the background and header
     grid.display.drawBackground()
     grid.drawBackGround(grid.backgroundGreen)
-    grid.drawGrid()
+    grid.drawGrid(grid.green, grid.lightGreen)
 
 
     var randomX : Int = (Math.random()*15).toInt
@@ -24,6 +24,8 @@ object Main {
     grid.display.drawTransformedPicture(grid.cornerSize * 30 + randomX*grid.cellSize + 15, grid.headerSize * 30 + randomY*grid.cellSize + 45, 0, 0.05, "/res/strawberry.png")
     grid.display.drawForeground()
     grid.drawHeader(grid.headerGreen)
+
+
     try{while(!grid.tailDeath){
       grid.move()
       grid.drawGame()

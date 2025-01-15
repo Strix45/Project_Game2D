@@ -78,6 +78,14 @@ class Grid (){
   val backgroundGreen : Color = new Color(100, 136, 64)
   val headerGreen : Color = new Color(85, 115, 54)
 
+  val lightGreenT : Color = new Color (178, 215, 95,125)
+  val greenT : Color = new Color (157, 201, 82,125)
+  val backgroundGreenT : Color = new Color(100, 136, 64, 125)
+  val headerGreenT : Color = new Color(85, 115, 54, 125)
+
+
+
+
 
   //Creation of the display here to make everything cleaner
   //Creation of the snake and food objects
@@ -135,6 +143,7 @@ class Grid (){
     }
   }
 
+
   def drawBackGround(c: Color): Unit = {
     for (x <- 0 until width) {
       for (y <- 0 until height) {
@@ -156,16 +165,16 @@ class Grid (){
 
 
   //Draws the grid unless there is the snake (early iteration of the snake head)
-  def drawGrid () : Unit = {
+  def drawGrid (c1 : Color, c2 : Color) : Unit = {
     {
       display.drawBackground()
       for (x <- cornerSize until numCellsX - cornerSize) {
         for (y <- headerSize + cornerSize until numCellsY - cornerSize) {
           // Alterne les couleurs en fonction de la position
           if (((x + y) % 2 == 0) )   {
-            drawCell(x, y, lightGreen) // vert clair
+            drawCell(x, y, c1) // vert clair
           } else if(!((x + y) % 2 == 0) ){
-            drawCell(x, y, green) // Vert foncé
+            drawCell(x, y, c2) // Vert foncé
           }
         }
       }
@@ -219,13 +228,19 @@ class Grid (){
 
   def scoreDisplay () : Unit = {
     display.drawString(width/6,height/8, s"This is your score : ${snake.score}","Arial",Font.PLAIN,20, blue)
-
+    display.drawTransformedPicture(width/4, headerSize*cellSize/2, 0, 0.05, "/res/strawberry.png")
   }
 
   def deathScreen() : Unit = {
-    display.clear()
+
+    display.drawBackground()
+    drawBackGround(backgroundGreenT)
+    drawGrid(greenT, lightGreenT)
+    drawHeader(headerGreenT)
+
+    display.drawForeground()
     display.drawString(width/4,height/2, "YOU DIEDDDDD", blue, 20)
-    drawHeader(headerGreen)
+    scoreDisplay()
   }
 
 
