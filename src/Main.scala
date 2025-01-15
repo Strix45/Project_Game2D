@@ -4,7 +4,7 @@ object Main {
   def main(args: Array[String]): Unit = {
 
 
-
+    println("hi")
     //Creation of the grid and the snake
     val grid : Grid = new Grid ()
 
