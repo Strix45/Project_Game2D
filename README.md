@@ -53,6 +53,7 @@ Ce menu apparaît après 2 situations : si tailDeath est true, càd si lorsque l
 Comme deuxième cas nous avons un try catch avec un ArrayIndexOutOfBoundsException qui arrive lorsque le snake tente de bouger en dehors du damier (car sa position est utilisée dans gridElement qui a une taille de 15x15)
 
 ### Start
+Ce menu utilise le mouseListener et une zone d'activation pour lancer le programme
 
 
 
